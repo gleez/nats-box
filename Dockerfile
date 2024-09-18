@@ -9,6 +9,7 @@ ARG TARGETARCH
 ARG VERSION_NATS
 ARG VERSION_NATS_TOP
 ARG VERSION_NSC
+ARG VERSION_NK
 
 ENV GOPATH /go/${TARGETARCH}
 
@@ -19,6 +20,7 @@ RUN <<EOT
     go install -ldflags="-X main.version=${VERSION_NSC}" github.com/nats-io/nsc/v2@v${VERSION_NSC}
     go install github.com/nats-io/nats-top@v${VERSION_NATS_TOP}
     go install github.com/nats-io/natscli/nats@v${VERSION_NATS}
+    go install github.com/nats-io/nkeys/nk@latest
 EOT
 
 FROM alpine:3.19.3
@@ -30,7 +32,7 @@ COPY --from=builder /go/${TARGETARCH}/bin/* /usr/local/bin
 RUN <<EOT
     set -e
     apk -U upgrade
-    apk add --no-cache ca-certificates curl figlet jq
+    apk add --no-cache ca-certificates curl figlet jq aws-cli
     rm -rf /var/cache/apk && mkdir /var/cache/apk
 
     addgroup -g 1000 nats
