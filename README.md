@@ -15,6 +15,7 @@ A lightweight container with NATS utilities.
 - nats - NATS management utility ([README](https://github.com/nats-io/natscli#readme))
 - nsc - create NATS accounts and users
 - nats-top - top-like tool for monitoring NATS servers
+- aws - aws cli for s3 backup/restore
 
 ## Getting started
 
